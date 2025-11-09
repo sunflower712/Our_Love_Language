@@ -247,7 +247,7 @@ export default function PlainEncoderDecoder() {
       {showGuide && (
         <div className="modal-backdrop" onClick={() => setShowGuide(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h3 style={{ margin: 0 }}>Morse code — Guide (A → Z)</h3>
+            <h3 style={{ margin: 0 }}>Code Guide (A → Z)</h3>
             <div className="modal-grid">
               {Object.keys(MORSE_MAP)
                 .filter((k) => k !== " ")
@@ -273,3 +273,4 @@ export default function PlainEncoderDecoder() {
     </div>
   );
 }
+
