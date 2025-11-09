@@ -3,61 +3,33 @@ import toast from "react-hot-toast";
 
 // Plain React component without Tailwind or shadcn. Uses simple CSS classes defined below.
 const MORSE_MAP = {
-  A: ".-",
-  B: "-...",
-  C: "-.-.",
-  D: "-..",
-  E: ".",
-  F: "..-.",
-  G: "--.",
-  H: "....",
-  I: "..",
-  J: ".---",
-  K: "-.-",
-  L: ".-..",
-  M: "--",
-  N: "-.",
-  O: "---",
-  P: ".--.",
-  Q: "--.-",
-  R: ".-.",
-  S: "...",
-  T: "-",
-  U: "..-",
-  V: "...-",
-  W: ".--",
-  X: "-..-",
-  Y: "-.--",
-  Z: "--..",
-  0: "-----",
-  1: ".----",
-  2: "..---",
-  3: "...--",
-  4: "....-",
-  5: ".....",
-  6: "-....",
-  7: "--...",
-  8: "---..",
-  9: "----.",
-  ".": ".-.-.-",
-  ",": "--..--",
-  "?": "..--..",
-  "'": ".----.",
-  "!": "-.-.--",
-  "/": "-..-.",
-  "(": "-.--.",
-  ")": "-.--.-",
-  "&": ".-...",
-  ":": "---...",
-  ";": "-.-.-.",
-  "=": "-...-",
-  "+": ".-.-.",
-  "-": "-....-",
-  _: "..--.-",
-  '"': ".-..-.",
-  $: "...-..-",
-  "@": ".--.-.",
-  " ": "/",
+  "A": "...",
+  "B": "..-",
+  "C": "..+",
+  "D": ".-.",
+  "E": ".--",
+  "F": ".-+",
+  "G": ".+.",
+  "H": ".+-",
+  "I": ".++",
+  "J": "-..",
+  "K": "-.-",
+  "L": "-.+",
+  "M": "--.",
+  "N": "---",
+  "O": "--+",
+  "P": "-+.",
+  "Q": "-+-",
+  "R": "-++",
+  "S": "+..",
+  "T": "+.-",
+  "U": "+.+",
+  "V": "+-.",
+  "W": "+--",
+  "X": "+-+",
+  "Y": "++.",
+  "Z": "++-",
+  "❤️": "+++"
 };
 
 const REVERSE_MORSE = Object.fromEntries(
@@ -121,15 +93,18 @@ export default function PlainEncoderDecoder() {
     const encoded = [];
     for (let i = 0; i < chars.length; i++) {
       const ch = chars[i];
+      console.log(ch);
       if (MORSE_MAP.hasOwnProperty(ch)) encoded.push(MORSE_MAP[ch]);
-      else encoded.push("?");
+      else if(ch == "❤") {encoded.push("+++"); i++;}
+      else if(ch != "" && ch != " ") encoded.push("?");
+      console.log(encoded);
     }
     return encoded.join(" ");
   }
 
   function decodeFromMorse(morse) {
-    if (!morse) return "";
-    const tokens = morse.trim().split(/\\s+/);
+    if (!morse) return "?";
+    const tokens = morse.trim().split(" ");
     const decoded = tokens.map((t) => REVERSE_MORSE[t] ?? "?");
     return decoded.join("").replace(/\\/g, " ");
   }
@@ -285,12 +260,6 @@ export default function PlainEncoderDecoder() {
                     </span>
                   </div>
                 ))}
-              <div className="modal-item" style={{ gridColumn: "span 2" }}>
-                <strong style={{ color: "#c026d3" }}>Space</strong>
-                <span style={{ fontFamily: "ui-monospace", marginLeft: 8 }}>
-                  /
-                </span>
-              </div>
             </div>
 
             <div className="modal-close">
